@@ -1,11 +1,13 @@
 import './scss/main.scss';
 import teams from './data/teams';
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', function(event) {
   init();
-};
+});
+const TEAMS = 'teams';
+const TOURNAMENT_WINNER = 'tournamentWinner';
 let currentRound = 0;
-const numberOfRounds = Math.log2(teams.length);
+let numberOfRounds = null;
 
 const prepareTeamStats = () => {
   const teamStats = [];
@@ -18,50 +20,44 @@ const prepareTeamStats = () => {
     };
     teamStats.push(teamData);
   });
-  localStorage.setItem('teams', JSON.stringify(teamStats));
+  numberOfRounds = Math.log2(teamStats.length);
+  localStorage.setItem(TEAMS, JSON.stringify(teamStats));
 };
 
-const updateTeamStats = (winner, looser) => {
-  const teamStats = JSON.parse(localStorage.getItem('teams'));
-  const winnerIndex = teamStats.findIndex(
-    team => team.teamId === winner.teamId
+const updateTeamStats = gameWinner => {
+  const teamStats = JSON.parse(localStorage.getItem(TEAMS));
+  const gameWinnerIndex = teamStats.findIndex(
+    team => team.teamId === gameWinner.teamId
   );
-  const looserIndex = teamStats.findIndex(
-    team => team.teamId === looser.teamId
-  );
-  teamStats[winnerIndex] = {
-    ...teamStats[winnerIndex],
-    round: teamStats[winnerIndex].round + 1
-  };
-  teamStats[looserIndex] = {
-    ...teamStats[looserIndex]
+  teamStats[gameWinnerIndex] = {
+    ...teamStats[gameWinnerIndex],
+    round: teamStats[gameWinnerIndex].round + 1
   };
 
-  localStorage.setItem('teams', JSON.stringify(teamStats));
+  localStorage.setItem(TEAMS, JSON.stringify(teamStats));
 };
 
 const startGame = (team1, team2) => {
   const winnerTeam = Math.random() < 0.5 ? team1 : team2;
-
-  winnerTeam === team1
-    ? updateTeamStats(winnerTeam, team2)
-    : updateTeamStats(winnerTeam, team1);
+  updateTeamStats(winnerTeam);
 };
 
-const startRound = currentRoundTeams => {
+const startRound = async currentRoundTeams => {
   for (let i = 0; i < currentRoundTeams.length; i = i + 2) {
     startGame(currentRoundTeams[i], currentRoundTeams[i + 1]);
+
+    if (i + 2 === currentRoundTeams.length) {
+      currentRound++;
+    }
   }
-  currentRound++;
 };
 
 const init = () => {
-  localStorage.setItem('tournamentWinner', null);
-
+  localStorage.setItem(TOURNAMENT_WINNER, null);
   prepareTeamStats();
 
   for (let i = 0; i <= numberOfRounds; i++) {
-    const teamStats = JSON.parse(localStorage.getItem('teams'));
+    const teamStats = JSON.parse(localStorage.getItem(TEAMS));
     const currentRoundTeams = currentRound
       ? teamStats.filter(team => {
           return team.round === currentRound;
@@ -71,10 +67,10 @@ const init = () => {
       startRound(currentRoundTeams);
     } else {
       localStorage.setItem(
-        'tournamentWinner',
+        TOURNAMENT_WINNER,
         JSON.stringify(currentRoundTeams[0])
       );
-      const winner = JSON.parse(localStorage.getItem('tournamentWinner'));
+      const winner = JSON.parse(localStorage.getItem(TOURNAMENT_WINNER));
       alert(`winner is ${winner.teamName}`);
     }
     console.log('currentRoundTeams', currentRoundTeams);
