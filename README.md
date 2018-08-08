@@ -7,3 +7,6 @@ A basic knockout tournament
 - run `yarn install` or `npm install`
 - run `npm run dev`
 - navigate to `http://localhost:7700/`
+
+# Demo
+See it working on [link text itself]: https://nostalgic-williams-2f36f7.netlify.com/
