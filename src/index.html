@@ -10,7 +10,14 @@
 </head>
 
 <body>
-    <div>Hello, world again!</div>
+    <div id="container">
+        <h1 class="text-center">Welcome to the Knockout tournament</h1>
+
+        <div class="text-center">
+            <div id="matchArea"></div>
+            <button id="startBtn" class="start-btn">Start tournament</button>
+        </div>
+    </div>
     <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
 

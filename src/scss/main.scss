@@ -1,3 +1,156 @@
-div {
-  color: red;
+.table-cnt {
+  margin-right: 200px;
+}
+
+.vs {
+  margin: 0 50px;
+}
+
+.team1,
+.team2 {
+  min-width: 200px;
+  min-height: 100px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.start-btn {
+  padding: 12px;
+  border-radius: 5px;
+  background: lightseagreen;
+  color: #fff;
+}
+
+.round-cnt {
+  /* border: 1px solid; */
+  /* padding: 5px; */
+  padding: 25px 0;
+  position: relative;
+}
+
+.round-cnt:first-child div:before {
+  display: none;
+}
+
+.round-cnt:last-child div:after {
+  display: none;
+}
+
+.round-cnt:last-child:after {
+  display: none;
+}
+
+.round-cnt.winner div {
+  background-color: chartreuse;
+  color: #fff;
+  text-align: center;
+}
+
+.round-cnt.flex-hbox div:first-child span:after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  background: #ffffff;
+  bottom: -25px;
+  z-index: 1;
+  left: 0;
+}
+
+.round-cnt.flex-hbox div:last-child span:after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  background: #ffffff;
+  bottom: -25px;
+  z-index: 1;
+  right: -10px;
+  padding-right: 10px;
+}
+
+.round-cnt div {
+  margin-right: 10px;
+  flex: 1 0;
+  background: #ccc;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.round-cnt div:after {
+  content: "";
+  height: 25px;
+  width: 1px;
+  background: #0f0000;
+  bottom: -25px;
+  position: absolute;
+}
+
+.round-cnt.flex-hbox:after {
+  content: "";
+  height: 1px;
+  background: #0f0000;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.round-cnt div:before {
+  content: "";
+  height: 25px;
+  width: 1px;
+  background: #0f0000;
+  top: -25px;
+  position: absolute;
+}
+
+.winner span:before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  background: #ffffff;
+  bottom: -25px;
+  z-index: 1;
+  right: -10px;
+  padding-right: 10px;
+}
+
+.round-cnt.winner {
+  width: 25%;
+  margin: -1px auto 0 auto;
+  background: #fff;
+}
+
+/* helper classes */
+.text-center {
+  text-align: center;
+}
+
+.flex-vbox {
+  display: flex;
+  /*Align children vetically*/
+  flex-direction: column;
+  align-content: flex-start;
+  /* overflow: hidden; */
+  /*Prevent extending beyond boundaries*/
+}
+
+/*Stack child items horizontally*/
+.flex-hbox {
+  display: flex;
+  /*Align children horizontally*/
+  flex-direction: row;
+  /*Wrap items to next line on main-axis*/
+  overflow: hidden;
+  /*Prevent extending beyond boundaries*/
+  text-shadow: 0 0 black;
+}
+
+.hidden {
+  display: none;
 }
