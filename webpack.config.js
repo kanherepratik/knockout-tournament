@@ -1,17 +1,17 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackMd5Hash = require("webpack-md5-hash");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[hash].js"
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: "./dist",
     port: 7700
   },
   module: {
@@ -20,36 +20,36 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader"
         }
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          "style-loader",
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader'
+          "css-loader",
+          "postcss-loader"
         ]
       },
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          "style-loader",
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
+          "css-loader",
+          "postcss-loader",
+          "sass-loader"
         ]
       },
       {
         test: /\.(woff(2)?|ttf|eot|otf)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/'
+              name: "[name].[ext]",
+              outputPath: "fonts/"
             }
           }
         ]
@@ -57,15 +57,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin('dist', {}),
+    new CleanWebpackPlugin("dist", {}),
     new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css'
+      filename: "style.[contenthash].css"
     }),
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,
-      template: './src/index.html',
-      filename: 'index.html'
+      template: "./src/index.html",
+      filename: "index.html"
     }),
     new WebpackMd5Hash()
   ]
